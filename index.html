@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planner da Rotina</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(180deg,#dff4ff,#9fdcff,#74c7ff);
+  color:#13415c;
+}
+
+.hidden{display:none}
+
+.tela{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+}
+
+.box{
+  width:100%;
+  max-width:430px;
+  background:rgba(255,255,255,.88);
+  border-radius:35px;
+  padding:35px 25px;
+  text-align:center;
+  box-shadow:0 15px 35px rgba(0,100,180,.20);
+}
+
+.logo{
+  font-size:65px;
+}
+
+h1,h2{
+  text-align:center;
+  color:#1f6c99;
+}
+
+.sub{
+  color:#467ea0;
+  font-weight:bold;
+  text-align:center;
+}
+
+.container{
+  max-width:470px;
+  margin:auto;
+  padding:22px;
+}
+
+.card{
+  background:rgba(255,255,255,.90);
+  border-radius:28px;
+  padding:20px;
+  margin:18px 0;
+  box-shadow:0 10px 25px rgba(0,100,180,.15);
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:18px;
+  margin-top:14px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn-blue{
+  background:linear-gradient(135deg,#58b8ff,#7fd0ff,#bdeaff);
+  color:white;
+}
+
+.categoria{
+  margin-top:18px;
+  padding:10px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#58b8ff,#8ad8ff);
+  color:white;
+  text-align:center;
+  font-weight:bold;
+}
+
+.tarefa{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#f7fcff;
+  border-bottom:1px solid #cbeeff;
+  padding:12px 8px;
+}
+
+.tarefa input{
+  width:22px;
+  height:22px;
+}
+
+.tarefa.feita{
+  opacity:.55;
+  text-decoration:line-through;
+}
+
+footer{
+  text-align:center;
+  font-size:12px;
+  color:#2b6b8f;
+  margin-top:20px;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="tela" id="inicio">
+  <div class="box">
+    <div class="logo">☁️</div>
+    <h1>Planner da Rotina</h1>
+    <p class="sub">Sua rotina organizada de forma leve e bonita 💙</p>
+
+    <button class="btn-blue" onclick="abrirPlanner()">Abrir planner ✨</button>
+  </div>
+</div>
+
+<div class="hidden" id="planner">
+
+  <div class="container">
+
+    <div class="logo" style="text-align:center;">☁️</div>
+    <h1>Minha Rotina</h1>
+    <p class="sub">Casa • crianças • autocuidado • trabalho • treino</p>
+
+    <div id="conteudo"></div>
+
+    <footer>
+      Planner da Rotina ☁️✨
+    </footer>
+
+  </div>
+
+</div>
+
+<script>
+const rotina = {
+"🩷 Segunda":{
+"🏠 Casa":[
+"Tirar lixo",
+"Arrumar casa",
+"Lavar roupas minhas",
+"Estender roupas minhas",
+"Colocar feijão para cozinhar e congelar",
+"Tirar roupa do varal e dobrar",
+"Trocar lençóis e toalhas",
+"Lavar banheiro",
+"Tirar pó da área",
+"Fazer janta/almoço do outro dia"
+],
+
+"💖 Autocuidado":[
+"Banho eu",
+"Óleo cabelo, creme hidratante, perfume",
+"Óleo cabelo",
+"Lavar cabelo",
+"Hidratação",
+"Esfoliação",
+"Limpar ouvido",
+"Gargarejo água e sal morno",
+"Tomar banho",
+"2 litros de água"
+],
+
+"👶 Crianças":[
+"Escovar dentes crianças",
+"Banho crianças",
+"Escola Lana",
+"Banho Lana",
+"Escovar dentes de crianças"
+],
+
+"💼 Trabalho & Estudos":[
+"Trabalho 14:00",
+"Estudo espanhol / algum curso"
+],
+
+"🏋️ Saúde":[
+"Treinar",
+"Treino glúteo e posterior + cardio",
+"Danone natural"
+],
+
+"🍽️ Alimentação":[
+"Café da manhã",
+"Fazer almoço",
+"Almoço"
+],
+
+"📱 Outros":[
+"Apagar chatgpt histórico"
+]
+},
+
+"💚 Terça":{
+"🏠 Casa":[
+"Arrumar casa",
+"Lavar roupas das crianças",
+"Tirar pó da cozinha",
+"Estender roupas das crianças",
+"Tirar roupa do varal e dobrar",
+"Limpar geladeira",
+"Aspirar sofá",
+"Fazer sobremesa",
+"Fazer janta/almoço do outro dia"
+],
+
+"💖 Autocuidado":[
+"Banho eu",
+"Óleo cabelo, creme hidratante, perfume",
+"Óleo na axila",
+"Lavar cabelo Lana",
+"Óleo no cabelo",
+"Óleo no cabelo",
+"Fazer sobrancelha",
+"Depilação",
+"Dolomita / argila verde no rosto",
+"Tomar banho",
+"2 litros de água"
+],
+
+"👶 Crianças":[
+"Escovar dentes crianças",
+"Banho crianças",
+"Escola Lana",
+"Banho de Lana",
+"Escovar dentes de crianças"
+],
+
+"💼 Trabalho & Estudos":[
+"Trabalho",
+"Curso espanhol",
+"Leitura ou crochê extra"
+],
+
+"🏋️ Saúde":[
+"Cardio leve",
+"Danone natural"
+],
+
+"🍽️ Alimentação":[
+"Café da manhã",
+"Fazer almoço",
+"Almoço"
+],
+
+"📱 Outros":[
+"Apagar chatgpt histórico"
+]
+},
+
+"❤️ Quarta":{
+"🏠 Casa":[
+"Arrumar casa",
+"Tirar o lixo",
+"Tirar pó do meu quarto",
+"Lavar quintal (quinzenal)",
+"Organizar guarda-roupa",
+"Trocar toalhas",
+"Fazer janta/almoço do outro dia"
+],
+
+"💖 Autocuidado":[
+"Banho eu",
+"Óleo cabelo, creme hidratante, perfume",
+"Limpar ouvido",
+"Lavar cabelo",
+"Reconstrução de 15 dias",
+"Esfoliação",
+"Tomar banho",
+"2 litros de água"
+],
+
+"👶 Crianças":[
+"Escovar dentes crianças",
+"Banho crianças",
+"Escola Lana",
+"Banho Lana",
+"Escovar dentes de crianças"
+],
+
+"💼 Trabalho & Estudos":[
+"Trabalho",
+"Estudo espanhol",
+"Curso"
+],
+
+"🏋️ Saúde":[
+"Treino quadríceps + abdômen",
+"Danone natural"
+],
+
+"🍽️ Alimentação":[
+"Café da manhã",
+"Fazer almoço",
+"Almoço"
+],
+
+"📱 Outros":[
+"Apagar chatgpt histórico"
+]
+},
+
+"🩵 Quinta":{
+"🏠 Casa":[
+"Arrumar casa",
+"Limpar janelas",
+"Lavar panos de chão e prato",
+"Fazer sobremesa",
+"Fazer janta/almoço do outro dia"
+],
+
+"💖 Autocuidado":[
+"Banho eu",
+"Óleo cabelo, creme hidratante, perfume",
+"Depilação",
+"Dolomita / argila verde no rosto",
+"Cílios",
+"Meu banho",
+"2 litros de água"
+],
+
+"👶 Crianças":[
+"Escovar dentes crianças",
+"Banho crianças",
+"Escola Lana",
+"Lavar cabelo de Lana",
+"Banho Lana",
+"Escovar dentes de crianças"
+],
+
+"💼 Trabalho & Estudos":[
+"Trabalho",
+"Crochê ou descanso"
+],
+
+"🏋️ Saúde":[
+"Cardio leve",
+"Danone natural"
+],
+
+"🍽️ Alimentação":[
+"Café da manhã",
+"Fazer almoço",
+"Almoço"
+],
+
+"📱 Outros":[
+"Apagar chatgpt histórico"
+]
+},
+
+"🩶 Sexta":{
+"🏠 Casa":[
+"Arrumar casa",
+"Lavar banheiro",
+"Varrer embaixo da cama e móveis",
+"Fazer janta/almoço do outro dia"
+],
+
+"💖 Autocuidado":[
+"Banho eu",
+"Óleo cabelo, creme hidratante, perfume",
+"Fazer unhas",
+"Fazer sobrancelhas",
+"Banho de lua",
+"Lavar cabelo",
+"Hidratação",
+"Limpar ouvido",
+"Meu banho",
+"Gargarejo água e sal morno",
+"2 litros de água"
+],
+
+"👶 Crianças":[
+"Escovar dentes crianças",
+"Banho crianças",
+"Escola Lana",
+"Banho Lana",
+"Escovar dentes de crianças"
+],
+
+"💼 Trabalho & Estudos":[
+"Trabalho",
+"Estudo inglês",
+"Curso"
+],
+
+"🏋️ Saúde":[
+"Treino glúteo + cardio leve",
+"Danone natural"
+],
+
+"🍽️ Alimentação":[
+"Café da manhã",
+"Fazer almoço",
+"Almoço"
+],
+
+"📱 Outros":[
+"Apagar chatgpt histórico"
+]
+},
+
+"💜 Sábado":{
+"🏠 Casa":[
+"Comida só se quiser"
+],
+
+"💖 Autocuidado":[
+"Depilação reforço",
+"Unhas dos pés",
+"2 litros de água"
+],
+
+"👶 Crianças":[
+"Dia da beleza das crianças unhas"
+],
+
+"💼 Trabalho & Estudos":[
+"Trabalho 11:30 - 21:00",
+"Crochê, leitura ou lazer"
+],
+
+"🏋️ Saúde":[
+"Cardio ou alongamento leve",
+"Danone natural"
+],
+
+"📱 Outros":[
+"Apagar chatgpt histórico"
+]
+}
+};
+
+function abrirPlanner(){
+document.getElementById("inicio").style.display="none";
+document.getElementById("planner").classList.remove("hidden");
+renderizar();
+}
+
+function renderizar(){
+const conteudo = document.getElementById("conteudo");
+conteudo.innerHTML="";
+
+Object.keys(rotina).forEach(dia=>{
+
+conteudo.innerHTML += `<div class="card"><h2>${dia}</h2><div id="${dia}"></div></div>`;
+
+const boxDia = document.getElementById(dia);
+
+Object.keys(rotina[dia]).forEach(cat=>{
+
+boxDia.innerHTML += `<div class="categoria">${cat}</div>`;
+
+rotina[dia][cat].forEach((tarefa,index)=>{
+
+const id = `${dia}-${cat}-${index}`;
+const salvo = localStorage.getItem(id)==="true";
+
+boxDia.innerHTML += `
+<div class="tarefa ${salvo ? "feita" : ""}" id="box-${id}">
+<input type="checkbox" ${salvo ? "checked" : ""} onchange="marcar('${id}')">
+<span>${tarefa}</span>
+</div>
+`;
+
+});
+
+});
+
+});
+}
+
+function marcar(id){
+const checkbox = event.target.checked;
+localStorage.setItem(id, checkbox);
+
+const box = document.getElementById("box-"+id);
+
+if(checkbox){
+box.classList.add("feita");
+}else{
+box.classList.remove("feita");
+}
+}
+</script>
+
+</body>
+</html>
